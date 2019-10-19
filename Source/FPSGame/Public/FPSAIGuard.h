@@ -16,7 +16,9 @@ enum class EAIState : uint8
 
 	Suspicious,
 
-	Alerted
+	Alerted, 
+
+	Walk
 };
 
 UCLASS()
@@ -30,6 +32,14 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPawnSensingComponent* PawnSensingComp;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Nav")
+	class ATargetPoint* Point1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Nav")
+	class ATargetPoint* Point2;
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -54,6 +64,8 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "AI")
 	void OnStateChanged(EAIState newState);
+
+	
 
 public:	
 	// Called every frame

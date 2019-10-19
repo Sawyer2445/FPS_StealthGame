@@ -4,6 +4,9 @@
 #include "Perception/PawnSensingComponent.h"
 #include "DrawDebugHelpers.h"
 #include "FPSGameMode.h"
+#include "Runtime/Engine/Classes/Engine/TargetPoint.h"
+#include "Kismet/GameplayStatics.h"
+#include "Runtime/AIModule/Classes/AIController.h"
 
 // Sets default values
 AFPSAIGuard::AFPSAIGuard()
@@ -16,6 +19,8 @@ AFPSAIGuard::AFPSAIGuard()
 	PawnSensingComp->OnSeePawn.AddDynamic(this, &AFPSAIGuard::OnPawnSeen);
 
 	PawnSensingComp->OnHearNoise.AddDynamic(this, &AFPSAIGuard::OnNoiseHeard);
+
+
 }
 
 // Called when the game starts or when spawned
@@ -23,7 +28,10 @@ void AFPSAIGuard::BeginPlay()
 {
 	Super::BeginPlay();
 	originalRotation = GetActorRotation();
-	GuardState = EAIState::Idle;
+	GuardState = EAIState::Walk;
+	
+
+	
 }
 
 void AFPSAIGuard::OnPawnSeen(APawn* SeenPawn)
@@ -95,6 +103,16 @@ void AFPSAIGuard::SetGuardState(EAIState newState)
 // Called every frame
 void AFPSAIGuard::Tick(float DeltaTime)
 {
+	
 	Super::Tick(DeltaTime);
+
+	//Controlling 
+	/*AAIController* AI_Controller = Cast<AAIController>(GetController());
+	if (AI_Controller)
+	{
+		AI_Controller->MoveToActor(Point1);
+		AI_Controller->StopMovement();
+		AI_Controller->MoveToActor(Point2);
+	}*/
 
 }
