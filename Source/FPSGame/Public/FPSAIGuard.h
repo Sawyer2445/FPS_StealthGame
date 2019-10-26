@@ -65,6 +65,12 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "AI")
 	void OnStateChanged(EAIState newState);
 
+
+	bool bMoveToPoint1;
+	void MoveToPoint1();
+
+	bool bMoveToPoint2;
+	void MoveToPoint2();
 	
 
 public:	

@@ -20,7 +20,7 @@ AFPSAIGuard::AFPSAIGuard()
 
 	PawnSensingComp->OnHearNoise.AddDynamic(this, &AFPSAIGuard::OnNoiseHeard);
 
-
+	bMoveToPoint1 = true;
 }
 
 // Called when the game starts or when spawned
@@ -100,19 +100,47 @@ void AFPSAIGuard::SetGuardState(EAIState newState)
 	OnStateChanged(GuardState);
 }
 
+void AFPSAIGuard::MoveToPoint1()
+{
+	AAIController* AI_Controller = Cast<AAIController>(GetController());
+	if (AI_Controller)
+	{
+		
+		AI_Controller->MoveToActor(Point1);
+		if (GetActorLocation().Equals(Point1->GetActorLocation(), 50))
+		{
+			bMoveToPoint1 = false;
+		}
+
+	}
+}
+
+void AFPSAIGuard::MoveToPoint2()
+{
+	AAIController * AI_Controller = Cast<AAIController>(GetController());
+	if (AI_Controller)
+	{
+		AI_Controller->MoveToActor(Point2);
+		if (GetActorLocation().Equals(Point2->GetActorLocation(), 50))
+		{
+			bMoveToPoint1 = true;
+		}
+	}
+}
+
 // Called every frame
 void AFPSAIGuard::Tick(float DeltaTime)
 {
 	
 	Super::Tick(DeltaTime);
 
-	//Controlling 
-	/*AAIController* AI_Controller = Cast<AAIController>(GetController());
-	if (AI_Controller)
+	if (bMoveToPoint1)
 	{
-		AI_Controller->MoveToActor(Point1);
-		AI_Controller->StopMovement();
-		AI_Controller->MoveToActor(Point2);
-	}*/
+		MoveToPoint1();
+	}
+	else
+	{
+		MoveToPoint2();
+	}
 
 }
