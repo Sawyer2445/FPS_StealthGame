@@ -16,9 +16,7 @@ enum class EAIState : uint8
 
 	Suspicious,
 
-	Alerted, 
-
-	Walk
+	Alerted
 };
 
 UCLASS()
@@ -33,13 +31,18 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPawnSensingComponent* PawnSensingComp;
 
+	UPROPERTY(EditInstanceOnly, Category = "AI")
+	bool bPatrol;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Nav")
-	class ATargetPoint* Point1;
+	UPROPERTY(EditInstanceOnly, Category = "AI", meta = (EditCondition ="bPatrol"))
+	AActor * FirstPotrolPoint;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Nav")
-	class ATargetPoint* Point2;
+	UPROPERTY(EditInstanceOnly, Category = "AI", meta = (EditCondition = "bPatrol"))
+	AActor * SecondPatrolPoint;
 
+	AActor * CurrentPatrolPoint;
+
+	void MoveToNextPatrolPoint();
 
 protected:
 	// Called when the game starts or when spawned
@@ -58,25 +61,16 @@ protected:
 	UFUNCTION()
 	void ResetOrientation();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EAIState GuardState;
 
+	
 	void SetGuardState(EAIState newState);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "AI")
 	void OnStateChanged(EAIState newState);
 
-
-	bool bMoveToPoint1;
-	void MoveToPoint1();
-
-	bool bMoveToPoint2;
-	void MoveToPoint2();
-	
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-
-
 };
