@@ -117,6 +117,11 @@ void AFPSAIGuard::ResetOrientation()
 	}
 }
 
+void AFPSAIGuard::OnRep_GuardState()
+{
+	OnStateChanged(GuardState);
+}
+
 void AFPSAIGuard::SetGuardState(EAIState newState)
 {
 	if (GuardState == newState)
@@ -125,6 +130,8 @@ void AFPSAIGuard::SetGuardState(EAIState newState)
 	}
 
 	GuardState = newState;
+
+	OnRep_GuardState();
 
 	OnStateChanged(GuardState);
 }

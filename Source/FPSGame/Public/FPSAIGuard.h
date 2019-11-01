@@ -61,9 +61,11 @@ protected:
 	UFUNCTION()
 	void ResetOrientation();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(ReplicatedUsing=OnRep_GuardState)
 	EAIState GuardState;
 
+	UFUNCTION();
+	void OnRep_GuardState();
 	
 	void SetGuardState(EAIState newState);
 
