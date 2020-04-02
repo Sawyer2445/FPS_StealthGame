@@ -64,7 +64,7 @@ protected:
 	UPROPERTY(ReplicatedUsing=OnRep_GuardState)
 	EAIState GuardState;
 
-	UFUNCTION();
+	//UFUNCTION()
 	void OnRep_GuardState();
 	
 	void SetGuardState(EAIState newState);

@@ -43,7 +43,7 @@ void AFPSObjectiveActor::NotifyActorBeginOverlap(AActor* OtherActor)
 
 	PlayEffects();
 
-	if (Role == ROLE_Authority)
+	if (GetLocalRole() == ROLE_Authority)
 	{
 		AFPSCharacter* MyCharacter = Cast<AFPSCharacter>(OtherActor);
 		if (MyCharacter)
