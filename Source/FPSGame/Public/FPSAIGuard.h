@@ -62,11 +62,11 @@ protected:
 	void ResetOrientation();
 
 	UPROPERTY(ReplicatedUsing=OnRep_GuardState)
-	EAIState GuardState;
-
-	//UFUNCTION()
+ 	EAIState GuardState;
+ 
+	UFUNCTION()
 	void OnRep_GuardState();
-	
+
 	void SetGuardState(EAIState newState);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "AI")
